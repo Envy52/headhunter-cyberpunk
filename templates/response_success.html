@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Отклик отправлен{% endblock %}
+
+{% block content %}
+    <h2>Отклик успешно отправлен</h2>
+    <p>Вы откликнулись на резюме: <strong>{{ resume.full_name }}</strong></p>
+    <p>На вакансию: <strong>{{ vacancy.title }}</strong></p>
+
+    <a href="{% url 'resume_detail' resume.pk %}">
+        <button>← Назад к резюме</button>
+    </a>
+{% endblock %}

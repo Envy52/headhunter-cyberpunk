@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    <h2>Добро пожаловать, {{ user.username }}!</h2>
+    <p>Вы зашли как: <strong>{{ user.get_role_display }}</strong></p>
+
+    <div class="actions">
+        {% if user.role == 'mercenary' %}
+            <a href="{% url 'public_vacancy_list' %}">
+                <button>Посмотреть вакансии</button>
+            </a>
+        {% elif user.role == 'fixer' %}
+            <a href="{% url 'vacancy_list' %}">
+                <button>Мои вакансии</button>
+            </a>
+        {% endif %}
+    </div>
+{% endblock %}

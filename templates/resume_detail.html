@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}{{ resume.full_name }} - Резюме{% endblock %}
+
+{% block content %}
+    <h2>РЕЗЮМЕ: {{ resume.full_name }}</h2>
+
+    <p><strong>Позиция:</strong> {{ resume.position }}</p>
+    <p><strong>Опыт работы:</strong> {{ resume.experience }}</p>
+    <p><strong>Навыки:</strong><br>{{ resume.skills }}</p>
+    <p><strong>Дата создания:</strong> {{ resume.created_at|date:"d.m.Y H:i" }}</p>
+
+    {% if user.role == 'fixer' and vacancies %}
+        <form method="post" action="{% url 'respond_to_resume' resume.pk %}" style="margin-top: 20px;">
+            {% csrf_token %}
+            <label for="vacancy">Выберите вакансию для отклика:</label>
+            <select name="vacancy" required>
+                {% for vacancy in vacancies %}
+                    <option value="{{ vacancy.pk }}">{{ vacancy.title }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Откликнуться</button>
+        </form>
+    {% endif %}
+
+    <h3>ОТКЛИКИ</h3>
+    {% if resume.response_set.all %}
+        <ul>
+            {% for response in resume.response_set.all %}
+                <li>{{ response.vacancy.title }} — {{ response.created_at|date:"d.m.Y H:i" }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Откликов пока нет.</p>
+    {% endif %}
+
+    <a href="{% url 'all_resumes' %}">
+        <button>← Назад к списку резюме</button>
+    </a>
+{% endblock %}

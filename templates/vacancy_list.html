@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Мои вакансии{% endblock %}
+
+{% block content %}
+    <h2>Мои вакансии</h2>
+
+    <a href="{% url 'vacancy_create' %}">
+        <button>Создать вакансию</button>
+    </a>
+
+    <ul>
+        {% for vacancy in vacancies %}
+            <li>
+                <a href="{% url 'vacancy_detail' vacancy.pk %}">{{ vacancy.title }}</a><br>
+                <a href="{% url 'vacancy_update' vacancy.pk %}">
+                    <button>Изменить</button>
+                </a>
+                <a href="{% url 'vacancy_delete' vacancy.pk %}">
+                    <button class="danger-btn">Удалить</button>
+                </a>
+            </li>
+        {% empty %}
+            <li>У вас пока нет вакансий.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'profile' %}">
+        <button>← Назад к профилю</button>
+    </a>
+
+    <a href="{% url 'home' %}">
+        <button>← На главную</button>
+    </a>
+{% endblock %}

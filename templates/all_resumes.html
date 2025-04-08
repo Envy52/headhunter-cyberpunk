@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Все резюме{% endblock %}
+
+{% block content %}
+<h2>Все резюме</h2>
+
+<form method="get" style="margin-bottom: 20px;">
+    <input type="text" name="q" placeholder="Поиск по имени" value="{{ search_query }}">
+    <select name="sort">
+        <option value="-created_at" {% if sort_by == "-created_at" %}selected{% endif %}>Сначала новые</option>
+        <option value="created_at" {% if sort_by == "created_at" %}selected{% endif %}>Сначала старые</option>
+    </select>
+    <button type="submit">Применить</button>
+</form>
+
+<ul>
+    {% for resume in page_obj %}
+        <li>
+            <a href="{% url 'resume_detail' resume.pk %}">{{ resume.full_name }}</a> — {{ resume.position }}
+        </li>
+    {% empty %}
+        <li>Резюме не найдены.</li>
+    {% endfor %}
+</ul>
+
+{% if page_obj.paginator.num_pages > 1 %}
+    <div class="pagination" style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
+        {% if page_obj.has_previous %}
+            <a href="{{ base_url }}&page=1">« Первая</a>
+            <a href="{{ base_url }}&page={{ page_obj.previous_page_number }}">‹ Назад</a>
+        {% endif %}
+
+        <span>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+
+        {% if page_obj.has_next %}
+            <a href="{{ base_url }}&page={{ page_obj.next_page_number }}">Вперёд ›</a>
+            <a href="{{ base_url }}&page={{ page_obj.paginator.num_pages }}">Последняя »</a>
+        {% endif %}
+    </div>
+{% endif %}
+
+<a href="{% url 'profile' %}">
+    <button>← Назад к профилю</button>
+</a>
+
+<a href="{% url 'home' %}">
+        <button>← На главную</button>
+</a>
+{% endblock %}

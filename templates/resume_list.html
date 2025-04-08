@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Мои резюме{% endblock %}
+
+{% block content %}
+    <h2>Мои резюме</h2>
+
+    <a href="{% url 'resume_create' %}">
+        <button>Создать резюме</button>
+    </a>
+
+    <ul>
+        {% for resume in resumes %}
+            <li>
+                <strong>{{ resume.full_name }}</strong> — {{ resume.position }}
+                <a href="{% url 'resume_update' resume.pk %}">
+                    <button>Изменить</button>
+                </a>
+                <a href="{% url 'resume_delete' resume.pk %}">
+                    <button class="danger-btn">Удалить</button>
+                </a>
+            </li>
+        {% empty %}
+            <li>Нет созданных резюме.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

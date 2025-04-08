@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Доступные вакансии{% endblock %}
+
+{% block content %}
+    <h2>Доступные вакансии</h2>
+
+    <form method="get" style="margin-bottom: 20px;">
+        <input type="text" name="search" placeholder="Поиск по названию, описанию, требованиям" value="{{ search }}">
+        <input type="date" name="date" value="{{ date }}">
+        <button type="submit">Фильтровать</button>
+        <a href="{% url 'public_vacancy_list' %}">
+            <button type="button">Сброс</button>
+        </a>
+    </form>
+
+    {% if vacancies %}
+        {% for vacancy in vacancies %}
+            <a href="{% url 'public_vacancy_detail' vacancy.pk %}" class="clickable-item">
+                {{ vacancy.title }} — фиксер {{ vacancy.employer.username }}
+            </a>
+
+            {% if vacancy.id in user_favorites %}
+                <a href="{% url 'remove_from_favorites' vacancy.id %}">
+                    <button class="danger-btn">Удалить из избранного</button>
+                </a>
+            {% else %}
+                <a href="{% url 'add_to_favorites' vacancy.id %}">
+                    <button>В избранное</button>
+                </a>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>Нет доступных вакансий</p>
+    {% endif %}
+
+    <a href="{% url 'home' %}">
+        <button>← На главную</button>
+    </a>
+{% endblock %}

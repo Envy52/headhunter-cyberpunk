@@ -1,0 +1,243 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'Orbitron', sans-serif;
+    background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    color: #00fff7;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container {
+    max-width: 800px;
+    width: 100%;
+    padding: 40px 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 2px solid #00fff7;
+    border-radius: 12px;
+    margin-top: 40px;
+    box-shadow: 0 0 20px rgba(0, 255, 247, 0.4);
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+
+
+
+.welcome-block {
+    text-align: center;
+    padding-top: 30px;
+}
+
+
+h1, h2, h3 {
+    color: #ffde00;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    background: rgba(255, 255, 255, 0.05);
+    margin-bottom: 10px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    border-left: 5px solid #00fff7;
+    transition: all 0.2s ease;
+    color: #fff;
+}
+
+li:hover {
+    background-color: rgba(0, 255, 247, 0.1);
+    transform: translateX(4px);
+}
+
+a {
+    color: #00fff7;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #ffde00;
+    text-decoration: underline;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input, textarea, select {
+    padding: 12px;
+    background-color: #111;
+    border: 1px solid #00fff7;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #fff;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: #ffde00;
+    outline: none;
+}
+
+.filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+
+button {
+    background: #00fff7;
+    color: #000;
+    padding: 12px;
+    margin-bottom:5px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+    font-weight: bold;
+}
+
+button:hover {
+    background: #ffde00;
+    color: #000;
+}
+
+.danger-btn {
+    background: #ff0033;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+}
+
+.danger-btn:hover {
+    background: #cc0029;
+}
+
+.alert {
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.alert-success {
+    background: rgba(0, 255, 0, 0.2);
+    color: #00ff00;
+}
+
+.alert-error {
+    background: rgba(255, 0, 0, 0.2);
+    color: #ff0033;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.navbar {
+    width: 100%;
+    padding: 20px 40px;
+    background: #000000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 255, 247, 0.1);
+}
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-logo img {
+    height: 65px;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 20px;
+}
+
+.navbar-links a {
+    color: #00fff7;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+    color: #ffde00;
+}
+
+
+@media (max-width: 600px) {
+    .container {
+        padding: 20px 10px;
+    }
+
+    li {
+        padding: 10px;
+    }
+
+    button {
+        font-size: 14px;
+    }
+}
+
+.clickable-item {
+    display: block;
+    background: rgba(255, 255, 255, 0.05);
+    margin-bottom: 10px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    border-left: 5px solid #00fff7;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.clickable-item:hover {
+    background-color: rgba(0, 255, 247, 0.1);
+    transform: translateX(4px);
+}
+
+footer.footer {
+    text-align: center;
+    padding: 20px;
+    color: #00fff7;
+    background: #000;
+    width: 100%;
+    box-shadow: 0 -4px 15px rgba(0, 255, 247, 0.1);
+}

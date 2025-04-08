@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Избранные вакансии{% endblock %}
+
+{% block content %}
+<h2>Избранные вакансии</h2>
+
+{% if favorites %}
+    <ul>
+        {% for favorite in favorites %}
+            <li>
+                <a href="{% url 'public_vacancy_detail' favorite.vacancy.pk %}">
+                    {{ favorite.vacancy.title }}
+                </a>
+                <a href="{% url 'remove_from_favorites' favorite.vacancy.pk %}">
+                    <button class="danger-btn">Удалить из избранного</button>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Список избранного пуст.</p>
+{% endif %}
+
+<a href="{% url 'home' %}"><button>← Назад на главную</button></a>
+{% endblock %}

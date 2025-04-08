@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    <div class="welcome-block">
+        <h1>Добро пожаловать, {{ user.username }}!</h1>
+        <p>Вы зашли как: <strong>{{ user.get_role_display }}</strong></p>
+
+        <div class="actions">
+            {% if user.role == 'mercenary' %}
+                <a href="{% url 'public_vacancy_list' %}"><button>Посмотреть вакансии</button></a>
+                <a href="{% url 'resume_create' %}"><button>Создать резюме</button></a>
+            {% elif user.role == 'fixer' %}
+                <a href="{% url 'vacancy_list' %}"><button>Мои вакансии</button></a>
+                <a href="{% url 'vacancy_create' %}"><button>Создать вакансию</button></a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if user.role == 'mercenary' and resumes %}
+        <div class="resume-section" style="margin-top: 40px;">
+            <h3>Мои резюме</h3>
+            <ul>
+                {% for resume in resumes %}
+                    <li class="clickable-item">
+                        <a href="{% url 'resume_detail' resume.pk %}">{{ resume.full_name }}</a> — {{ resume.position }}
+                        <a href="{% url 'resume_update' resume.pk %}"><button>Изменить</button></a>
+                        <a href="{% url 'resume_delete' resume.pk %}"><button class="danger-btn">Удалить</button></a>
+                    </li>
+                {% empty %}
+                    <li>У вас пока нет резюме.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% elif user.role == 'fixer' and resumes %}
+        <div class="resume-section" style="margin-top: 40px;">
+            <h3><a href="{% url 'all_resumes' %}" style="color: #ffde00; text-decoration: none;">Резюме всех наёмников</a></h3>
+            <ul>
+                {% for resume in resumes %}
+                    <li>
+                        <a href="{% url 'resume_detail' resume.pk %}">{{ resume.full_name }}</a> — {{ resume.position }}
+                    </li>
+                {% empty %}
+                    <li>Резюме не найдены.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}

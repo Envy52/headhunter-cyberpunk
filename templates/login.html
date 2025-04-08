@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+    <h2>Вход в систему</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        <button type="submit">Войти</button>
+    </form>
+
+<label class="show-password">
+    <input type="checkbox" onclick="togglePassword()"> Показать пароль
+</label>
+
+<script>
+function togglePassword() {
+    const inputs = document.querySelectorAll('input[type="password"], input[data-show="true"]');
+    inputs.forEach(input => {
+        if (input.type === 'password') {
+            input.setAttribute('data-show', 'true');
+            input.type = 'text';
+        } else {
+            input.type = 'password';
+        }
+    });
+}
+</script>
+
+    <p>Нет аккаунта? <a href="{% url 'register' %}">Зарегистрироваться</a></p>
+{% endblock %}

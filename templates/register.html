@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+    <h2>Регистрация</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+
+<label class="show-password">
+    <input type="checkbox" onclick="togglePassword()"> Показать пароль
+</label>
+
+<script>
+function togglePassword() {
+    const inputs = document.querySelectorAll('input[type="password"], input[data-show="true"]');
+    inputs.forEach(input => {
+        if (input.type === 'password') {
+            input.setAttribute('data-show', 'true');
+            input.type = 'text';
+        } else {
+            input.type = 'password';
+        }
+    });
+}
+</script>
+
+    <p>Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a></p>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Откликнуться на резюме{% endblock %}
+
+{% block content %}
+    <h2>Откликнуться на резюме: {{ resume.full_name }} — {{ resume.position }}</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" name="vacancy_id" value="{{ vacancy.id }}">
+    </form>
+
+    <a href="{% url 'respond_to_resume' resume.pk %}">
+        <button>Откликнуться</button>
+    </a>
+
+
+    <a href="{% url 'resume_detail' resume.pk %}">
+        <button>← Назад к резюме</button>
+    </a>
+{% endblock %}

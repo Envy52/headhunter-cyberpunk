@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Удалить резюме{% endblock %}
+
+{% block content %}
+    <h2>Удалить резюме "{{ resume }}"?</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="danger-btn">Подтвердить</button>
+    </form>
+
+    <a href="{% url 'resume_list' %}">
+        <button>Отменить</button>
+    </a>
+{% endblock %}

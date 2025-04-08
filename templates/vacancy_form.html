@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if form.instance.pk %}Редактировать вакансию{% else %}Создать вакансию{% endif %}
+{% endblock %}
+
+{% block content %}
+    <h2>{% if form.instance.pk %}Редактировать вакансию{% else %}Создать вакансию{% endif %}</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        <button type="submit">Сохранить</button>
+    </form>
+
+    <a href="{% url 'vacancy_list' %}">
+        <button>← Назад к списку вакансий</button>
+    </a>
+{% endblock %}

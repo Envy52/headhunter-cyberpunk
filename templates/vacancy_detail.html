@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ vacancy.title }}{% endblock %}
+
+{% block content %}
+    <h2>{{ vacancy.title }}</h2>
+
+    <p><strong>Описание:</strong><br>{{ vacancy.description }}</p>
+    <p><strong>Требования:</strong><br>{{ vacancy.requirements }}</p>
+    <p><strong>Создано:</strong> {{ vacancy.created_at|date:"d.m.Y H:i" }}</p>
+
+    {% if user == vacancy.fixer %}
+        <div class="actions">
+            <a href="{% url 'vacancy_update' vacancy.pk %}">
+                <button>Изменить вакансию</button>
+            </a>
+            <a href="{% url 'vacancy_delete' vacancy.pk %}">
+                <button class="danger-btn">Удалить вакансию</button>
+            </a>
+        </div>
+    {% endif %}
+
+    <h3 style="margin-top: 40px;">Отзывы от наёмников:</h3>
+    {% if reviews %}
+        <ul>
+            {% for review in reviews %}
+                <li>
+                    <strong>{{ review.user.username }}</strong> ({{ review.created_at|date:"d.m.Y H:i" }}):<br>
+                    {{ review.text }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Пока нет отзывов.</p>
+    {% endif %}
+
+    <a href="{% url 'vacancy_list' %}">
+        <button>← Назад к списку вакансий</button>
+    </a>
+{% endblock %}
