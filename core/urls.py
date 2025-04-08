@@ -1,8 +1,8 @@
 from django.urls import path
 from django.views.generic import TemplateView
-
 from . import views
 from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
     path('', views.start_page, name='start'),
@@ -36,6 +36,9 @@ urlpatterns = [
     path('resumes/<int:pk>/respond/', views.respond_to_resume, name='respond_to_resume'),
 
     path('favorites/', views.favorite_list, name='favorite_list'),
+
+    path('test-email/', views.test_email_view, name='test_email'),
+
     path('favorites/add/<int:vacancy_id>/', views.add_to_favorites, name='add_to_favorites'),
     path('favorites/remove/<int:vacancy_id>/', views.remove_from_favorites, name='remove_from_favorites'),
 

@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Resume, Vacancy, Favorite, Response
 from .forms import ResumeForm, VacancyForm, CustomUserCreationForm, ProfileUpdateForm, VacancyReviewForm
@@ -21,7 +22,6 @@ def home(request):
         resumes = []
 
     return render(request, 'home.html', {'resumes': resumes})
-
 
 
 def start_page(request):
@@ -108,7 +108,6 @@ def vacancy_detail(request, pk):
         'vacancy': vacancy,
         'reviews': reviews
     })
-
 
 
 @login_required
@@ -304,3 +303,14 @@ def favorite_list(request):
     favorites = Favorite.objects.filter(user=request.user).select_related('vacancy')
     return render(request, 'favorites.html', {'favorites': favorites})
 
+
+@login_required
+def test_email_view(request):
+    send_mail(
+        subject='Тестовое письмо',
+        message='Привет! Это проверка отправки email-сообщений в HeadHunter.',
+        from_email=None,
+        recipient_list=[request.user.email],
+        fail_silently=False,
+    )
+    return HttpResponse("Письмо отправлено! Проверь консоль.")
