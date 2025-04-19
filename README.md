@@ -26,7 +26,7 @@
 ## 🧪 Запуск проекта
 
 ```bash
-git clone https://github.com/your-username/hh-cyberpunk.git
+git clone https://github.com/Envy52/headhunter-cyberpunk.git
 cd hh-cyberpunk
 python -m venv venv
 venv\Scripts\activate # или source venv/bin/activate на Mac
