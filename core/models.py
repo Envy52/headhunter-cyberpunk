@@ -9,7 +9,7 @@ class CustomUser(AbstractUser):
         ('fixer', 'Фиксер'),
     )
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='mercenary')
-    avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
+    avatar = models.ImageField(upload_to='core/avatars/', blank=True, null=True)
 
 
 class Resume(models.Model):

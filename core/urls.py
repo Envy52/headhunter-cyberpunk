@@ -35,10 +35,9 @@ urlpatterns = [
     path('vacancies/<int:pk>/review/', views.leave_review, name='leave_review'),
     path('resumes/<int:pk>/respond/', views.respond_to_resume, name='respond_to_resume'),
 
-    path('favorites/', views.favorite_list, name='favorite_list'),
-
     path('test-email/', views.test_email_view, name='test_email'),
 
+    path('favorites/', views.favorite_list, name='favorites'),
     path('favorites/add/<int:vacancy_id>/', views.add_to_favorites, name='add_to_favorites'),
     path('favorites/remove/<int:vacancy_id>/', views.remove_from_favorites, name='remove_from_favorites'),
 
