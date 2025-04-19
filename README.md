@@ -27,6 +27,7 @@
 
 ```bash
 git clone https://github.com/Envy52/headhunter-cyberpunk.git
+cd hh-project
 python -m venv venv
 venv\Scripts\activate # или source venv/bin/activate на Mac
 pip install -r requirements.txt
