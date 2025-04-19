@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Вход{% endblock %}
+{% block title %}Вход в систему{% endblock %}
 
 {% block content %}
     <h2>Вход в систему</h2>
@@ -8,18 +8,34 @@
     <form method="post">
         {% csrf_token %}
         <div class="form-group">
-            {{ form.username.label_tag }}
-            {{ form.username }}
+            {{ form.as_p }}
         </div>
-        <div class="form-group">
-            {{ form.password.label_tag }}
-            <input type="password" name="password" id="id_password">
-        </div>
-
         <button type="submit">Войти</button>
     </form>
 
-    <button type="button" id="toggle-password">Показать</button>
+    <label class="show-password">
+        <input type="checkbox" onclick="togglePassword()"> Показать пароль
+    </label>
 
     <p>Нет аккаунта? <a href="{% url 'register' %}">Зарегистрироваться</a></p>
+
+    <div style="margin-top: 20px;">
+        <a href="{% url 'public_start_page' %}">
+            <button type="button">Посмотреть вакансии без входа</button>
+        </a>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const inputs = document.querySelectorAll('input[type="password"], input[data-show="true"]');
+            inputs.forEach(input => {
+                if (input.type === 'password') {
+                    input.setAttribute('data-show', 'true');
+                    input.type = 'text';
+                } else {
+                    input.type = 'password';
+                }
+            });
+        }
+    </script>
 {% endblock %}

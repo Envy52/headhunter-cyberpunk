@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ vacancy.title }}{% endblock %}
+
+{% block content %}
+    <h2>{{ vacancy.title }}</h2>
+
+    <p><strong>Описание:</strong><br>{{ vacancy.description }}</p>
+    <p><strong>Требования:</strong><br>{{ vacancy.requirements }}</p>
+    <p><strong>Создано:</strong> {{ vacancy.created_at|date:"d.m.Y H:i" }}</p>
+
+    <a href="{% url 'public_start_page' %}">
+        <button>← Назад к списку</button>
+    </a>
+{% endblock %}

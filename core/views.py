@@ -4,13 +4,37 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Resume, Vacancy, Favorite, Response
 from .forms import ResumeForm, VacancyForm, CustomUserCreationForm, ProfileUpdateForm, VacancyReviewForm
 from django.contrib.auth import login
-from .decorators import mercenary_required, fixer_required
+from .decorators import mercenary_required
 from django.core.paginator import Paginator
 from django.utils.http import urlencode
 from django.core.mail import send_mail
 from django.db.models import Q
 from django.contrib import messages
 
+
+def public_start_page(request):
+    search_query = request.GET.get('search', '')
+    vacancies = Vacancy.objects.all()
+
+    if search_query:
+        vacancies = vacancies.filter(
+            Q(title__icontains=search_query) |
+            Q(description__icontains=search_query) |
+            Q(requirements__icontains=search_query)
+        )
+
+    paginator = Paginator(vacancies.order_by('-created_at'), 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'public_start_page.html', {
+        'page_obj': page_obj,
+        'search': search_query
+    })
+
+def public_vacancy_detail_guest(request, pk):
+    vacancy = get_object_or_404(Vacancy, pk=pk)
+    return render(request, 'public_vacancy_detail_guest.html', {'vacancy': vacancy})
 
 @login_required
 def home(request):

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Вакансии{% endblock %}
+
+{% block content %}
+<h2>Актуальные вакансии</h2>
+
+<form method="get" style="margin-bottom: 20px;">
+    <input type="text" name="search" placeholder="Поиск по вакансиям..." value="{{ search }}">
+    <button type="submit">Поиск</button>
+</form>
+
+{% if page_obj %}
+    {% for vacancy in page_obj %}
+        <a href="{% url 'public_vacancy_detail_guest' vacancy.pk %}" class="clickable-item">
+            <strong>{{ vacancy.title }}</strong><br>
+            <small>{{ vacancy.created_at|date:"d.m.Y H:i" }}</small><br>
+            <p>{{ vacancy.description|truncatechars:150 }}</p>
+        </a>
+    {% empty %}
+        <p>Вакансии не найдены.</p>
+    {% endfor %}
+
+    <div class="pagination" style="margin-top: 20px;">
+        {% if page_obj.has_previous %}
+            <a href="?page=1{% if search %}&search={{ search }}{% endif %}">« Первая</a>
+            <a href="?page={{ page_obj.previous_page_number }}{% if search %}&search={{ search }}{% endif %}">‹ Назад</a>
+        {% endif %}
+
+        <span>Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if search %}&search={{ search }}{% endif %}">Вперёд ›</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}{% if search %}&search={{ search }}{% endif %}">Последняя »</a>
+        {% endif %}
+    </div>
+{% else %}
+    <p>Нет доступных вакансий.</p>
+{% endif %}
+
+<div style="margin-top: 30px;">
+    <a href="{% url 'login' %}"><button>Войти</button></a>
+    <a href="{% url 'register' %}"><button>Регистрация</button></a>
+</div>
+{% endblock %}
