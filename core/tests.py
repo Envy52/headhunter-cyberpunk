@@ -34,13 +34,13 @@ class VacancyReviewTestCase(TestCase):
         self.user = User.objects.create_user(username='merc1', password='pass123', role='mercenary')
         self.fixer = User.objects.create_user(username='fixer1', password='pass123', role='fixer')
         self.vacancy = Vacancy.objects.create(title='Test Vacancy', description='...', requirements='...',
-                                              employer=self.fixer)
+                                              fixer=self.fixer)
 
     def test_create_review(self):
         self.client.login(username='merc1', password='pass123')
         url = reverse('public_vacancy_detail', args=[self.vacancy.id])
         response = self.client.post(url, {'text': 'Отклик на вакансию'})
-        self.assertEqual(response.status_code, 302)  # Redirect after submit
+        self.assertEqual(response.status_code, 302)
         self.assertEqual(VacancyReview.objects.count(), 1)
         review = VacancyReview.objects.first()
         self.assertEqual(review.text, 'Отклик на вакансию')
