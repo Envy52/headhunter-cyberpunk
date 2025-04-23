@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -56,10 +57,19 @@ def start_page(request):
 
 def register(request):
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
             login(request, user)
+
+            send_mail(
+                'Добро пожаловать!',
+                f'{user.username}, вы успешно зарегистрировались на HeadHunter Cyberpunk.',
+                settings.DEFAULT_FROM_EMAIL,
+                [user.email],
+                fail_silently=False,
+            )
+
             messages.success(request, f"Добро пожаловать, {user.username}! Вы успешно зарегистрировались.")
             return redirect('home')
         else:
